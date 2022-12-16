@@ -1,4 +1,6 @@
-fetch("http://localhost:3000/api/products")
+
+
+fetch('http://localhost:3000/api/products')
   .then(function (res) {
     if (res.ok) {
       return res.json();
@@ -46,26 +48,37 @@ fetch("http://localhost:3000/api/products")
     const addToCart = document.getElementById("addToCart");
     // On récupère l'élément sur lequel on veut détecter le changement ici la quantitée saisie par l'user
     const quantityId = document.getElementById("quantity");
-        quantityId.addEventListener("change",function(){
-        });
+    quantityId.addEventListener("change", function () {});
     // On récupère l'élément sur lequel on veut détecter le changement ici la couleur saisie par l'user
     const colorChoosed = document.getElementById("colors");
-        colorChoosed.addEventListener("change",function(){
-        });
+    colorChoosed.addEventListener("change", function () {});
+
+    let count = 0;
     // lors du clic sur le bouton Ajouter au Panier
     addToCart.addEventListener("click", function () {
-        // on ajoute au localstorage l'ID, la quantitée et la couleur de l'article choisi par l'user
-        localStorage.setItem("id", idUrl);
-        localStorage.setItem("quantity", quantityId.value);
-        localStorage.setItem("color", colorChoosed.value);
-        //localStorage.setItem("quantity", quantityChoosed);
-        //const colorChoosed = document.getElementById("quantity");
-        let test1 = localStorage.getItem("id");
-        let test2 = localStorage.getItem("quantity");
-        let test3 = localStorage.getItem("color");
-        console.log(test1);
-        console.log(test2);
-        console.log(test3);
+      //count++;
+      //let arrayName = 'data' + count;
+      //let (count + 'data') = [];
+      //arrayName.push(idUrl, quantityId.value, colorChoosed.value);
+      //console.log(window[arrayName]);
+
+      // on ajoute au localstorage l'ID, la quantitée et la couleur de l'article choisi par l'user
+      localStorage.setItem("id", idUrl);
+      localStorage.setItem("quantity", quantityId.value);
+      localStorage.setItem("color", colorChoosed.value);
+      // Met le resultat
+      //localStorage.setItem('data1', JSON.stringify(idUrl, quantityId.value , colorChoosed.value));
+      let test1 = localStorage.getItem("id");
+      let test2 = localStorage.getItem("quantity");
+      let test3 = localStorage.getItem("color");
+      console.log(test1);
+      console.log(test2);
+      console.log(test3);
+      //for (let i = 0; i < localStorage.length; i++) {
+      //const clé = localStorage.key(i);
+      //const valeur = localStorage.getItem(clé);
+      //console.log(clé, valeur);
+      //}
     });
   })
   .catch(function (err) {
