@@ -1,6 +1,4 @@
-
-
-fetch('http://localhost:3000/api/products')
+fetch("http://localhost:3000/api/products")
   .then(function (res) {
     if (res.ok) {
       return res.json();
@@ -48,38 +46,58 @@ fetch('http://localhost:3000/api/products')
     const addToCart = document.getElementById("addToCart");
     // On récupère l'élément sur lequel on veut détecter le changement ici la quantitée saisie par l'user
     const quantityId = document.getElementById("quantity");
-    quantityId.addEventListener("change", function () {});
     // On récupère l'élément sur lequel on veut détecter le changement ici la couleur saisie par l'user
     const colorChoosed = document.getElementById("colors");
-    colorChoosed.addEventListener("change", function () {});
-
-    let count = 0;
     // lors du clic sur le bouton Ajouter au Panier
     addToCart.addEventListener("click", function () {
-      //count++;
-      //let arrayName = 'data' + count;
-      //let (count + 'data') = [];
-      //arrayName.push(idUrl, quantityId.value, colorChoosed.value);
-      //console.log(window[arrayName]);
+      
+      let cart = {
+        id: idUrl, //la valeur de l'id est l'id contenu dans l'URL
+        color: colorChoosed.value, //la valeur de couleur sera la couleur que l'user à choisi
+        //quantity : parseInt(quantityId.value, 10)
+        quantity: quantityId.value //la valeur de quantity sera la quantité choisi par l'user
+      };
+      cart.quantity = parseInt(cart.quantity, 10);
+      //console.log(typeof cart.quantity);
+      let localStorage_Products = JSON.parse(localStorage.getItem("products"));
+      
+      //cart.quantity = parseInt(cart.quantity, 10);
+  
+      //console.log(typeof cart_quantity_Int);
+      //console.log(cart_quantity_Int);
+      if (quantityId.value < 1 || quantityId.value > 100 ){
+        alert("Selectionner une quantité valide");
+        return;
+      }
 
-      // on ajoute au localstorage l'ID, la quantitée et la couleur de l'article choisi par l'user
-      localStorage.setItem("id", idUrl);
-      localStorage.setItem("quantity", quantityId.value);
-      localStorage.setItem("color", colorChoosed.value);
-      // Met le resultat
-      //localStorage.setItem('data1', JSON.stringify(idUrl, quantityId.value , colorChoosed.value));
-      let test1 = localStorage.getItem("id");
-      let test2 = localStorage.getItem("quantity");
-      let test3 = localStorage.getItem("color");
-      console.log(test1);
-      console.log(test2);
-      console.log(test3);
-      //for (let i = 0; i < localStorage.length; i++) {
-      //const clé = localStorage.key(i);
-      //const valeur = localStorage.getItem(clé);
-      //console.log(clé, valeur);
-      //}
+      if (localStorage_Products) {
+        let result = localStorage_Products.find((p) => 
+          p.id === cart.id && p.color === cart.color
+        );
+        if (result) {
+          
+          result.quantity = parseInt(result.quantity, 10);
+          result.quantity = cart.quantity + result.quantity;
+          
+        } else {
+          localStorage_Products.push(cart);
+        }
+      } else {
+        localStorage_Products = [cart];
+      }
+      
+      localStorage.setItem("products", JSON.stringify(localStorage_Products));
+      //localStorage.clear();
+      //localStorage_Products = null;
+      console.log(localStorage_Products);
+      for (var i = 0; i < localStorage.length; i++){
+        var key = localStorage.key(i);
+        var value = localStorage.getItem(key);
+        console.log(key + " = " + value);
+      }
+      
     });
+  
   })
   .catch(function (err) {
     // Une erreur est survenue
