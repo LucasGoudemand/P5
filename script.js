@@ -1,8 +1,7 @@
 getProducts().then((lProduct) => {
   //selection de l'id ITEMS pour l'ajout des canapés et création de la variable element
   const element = document.getElementById("items");
-  for (let product of lProduct) {
-  }
+  
   //création de la boucle for
   for (let i = 0; i < lProduct.length; i++) {
     //création de la balise <a>

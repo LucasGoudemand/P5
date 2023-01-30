@@ -252,7 +252,9 @@ buttonSendOrder.addEventListener("click", function () {
   } else if (!regexEmail.test(inputEmail.value)) {
     document.getElementById("emailErrorMsg").innerHTML =
       "Veuillez completer le champ Email avec des caractéres valides";
+      event.preventDefault();
     return;
+    
   } else {
     //Supression du message d'erreur dans le dom si le champ est correctement rempli avec verification si l'element lastNameErrorMsg existe bien dans le DOM
     const emailError = document.getElementById("emailErrorMsg");
@@ -274,8 +276,9 @@ buttonSendOrder.addEventListener("click", function () {
   for (let ItemsInMyCart of localStorage_Products) {
     products.push(ItemsInMyCart.id);
   };
+  console.log("Avant")
   //Création des options pour l'envoi à
   sendingDataForApi({ contact, products });
-
+  console.log("apres fetch fin de code")
 });
 

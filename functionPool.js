@@ -69,11 +69,7 @@ function sendingDataForApi(dataForApi) {
       return response.json();
     })
     .then((data) => {
-      
       window.location.href = "../html/confirmation.html?id="+data.orderId;
     })
     .catch((error) => alert(error));
-
-    
-
 }
